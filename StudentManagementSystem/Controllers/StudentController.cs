@@ -18,6 +18,27 @@ namespace StudentManagementSystem.Controllers
             return View(objStudentList);
         }
 
+        // GET: Students/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null || _context.Students == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var student = await _context.Students
+        //        .Include(b => b.Enrollments)
+        //        .ThenInclude(c => c.Course)
+        //        //.Where(z=>z.ID == id)
+        //        .FirstOrDefaultAsync(m => m.ID == id);
+        //    if (student == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(student);
+        //}
+
         //GET
         public IActionResult Create()
         {
@@ -33,18 +54,14 @@ namespace StudentManagementSystem.Controllers
             //{
             //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             //}
-            _db.Students.Add(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Category created successfully";
-            return RedirectToAction("Index");
-            //if (ModelState.IsValid)
-            //{
-            //    _db.Students.Add(obj);
-            //    _db.SaveChanges();
-            //    TempData["success"] = "Category created successfully";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
+            if (ModelState.IsValid)
+            {
+                _db.Students.Add(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
 
@@ -56,8 +73,6 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
             var categoryFromDb = _db.Students.Find(id);
-            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -76,18 +91,14 @@ namespace StudentManagementSystem.Controllers
             //{
             //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             //}
-            _db.Students.Update(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Category updated successfully";
-            return RedirectToAction("Index");
-            //if (ModelState.IsValid)
-            //{
-            //    _db.Students.Update(obj);
-            //    _db.SaveChanges();
-            //    TempData["success"] = "Category updated successfully";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
+            if (ModelState.IsValid)
+            {
+                _db.Students.Update(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
 

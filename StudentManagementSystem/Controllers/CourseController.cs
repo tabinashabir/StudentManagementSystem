@@ -33,18 +33,14 @@ namespace StudentManagementSystem.Controllers
             //{
             //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             //}
-            _db.Courses.Add(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Course created successfully";
-            return RedirectToAction("Index");
-            //if (ModelState.IsValid)
-            //{
-            //    _db.Students.Add(obj);
-            //    _db.SaveChanges();
-            //    TempData["success"] = "Category created successfully";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
+            if (ModelState.IsValid)
+            {
+                _db.Courses.Add(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
 
@@ -56,8 +52,6 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
             var categoryFromDb = _db.Courses.Find(id);
-            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -76,18 +70,14 @@ namespace StudentManagementSystem.Controllers
             //{
             //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             //}
-            _db.Courses.Update(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Course updated successfully";
-            return RedirectToAction("Index");
-            //if (ModelState.IsValid)
-            //{
-            //    _db.Students.Update(obj);
-            //    _db.SaveChanges();
-            //    TempData["success"] = "Category updated successfully";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
+            if (ModelState.IsValid)
+            {
+                _db.Courses.Update(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
 

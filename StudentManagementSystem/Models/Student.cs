@@ -19,8 +19,9 @@ namespace StudentManagementSystem.Models
         public string LastName { get; set; }
 
         [Required]
+        [DisplayName("Enrollment Date")]
         public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

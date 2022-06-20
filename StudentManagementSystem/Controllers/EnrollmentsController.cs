@@ -26,26 +26,6 @@ namespace StudentManagementSystem.Controllers
             return View(await studentManagementSystemDbContext.ToListAsync());
         }
 
-        // GET: Enrollments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Enrollments == null)
-            {
-                return NotFound();
-            }
-
-            var enrollment = await _context.Enrollments
-                .Include(e => e.Course)
-                .Include(e => e.Student)
-                .FirstOrDefaultAsync(m => m.EnrollmentID == id);
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
-
-            return View(enrollment);
-        }
-
         // GET: Enrollments/Create
         public IActionResult Create()
         {
@@ -55,24 +35,19 @@ namespace StudentManagementSystem.Controllers
         }
 
         // POST: Enrollments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EnrollmentID,CourseID,StudentID")] Enrollment enrollment)
         {
-            _context.Add(enrollment);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(enrollment);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title", enrollment.CourseID);
-            //ViewData["StudentID"] = new SelectList(_context.Students, "ID", "FirstName", enrollment.StudentID);
-            //return View(enrollment);
+            if (ModelState.IsValid)
+            {
+                _context.Add(enrollment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title", enrollment.CourseID);
+            ViewData["StudentID"] = new SelectList(_context.Students, "ID", "FirstName", enrollment.StudentID);
+            return View(enrollment);
         }
 
         // GET: Enrollments/Edit/5
@@ -94,8 +69,6 @@ namespace StudentManagementSystem.Controllers
         }
 
         // POST: Enrollments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("EnrollmentID,CourseID,StudentID")] Enrollment enrollment)
@@ -104,47 +77,29 @@ namespace StudentManagementSystem.Controllers
             {
                 return NotFound();
             }
-            try
+            if (ModelState.IsValid)
             {
-                _context.Update(enrollment);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EnrollmentExists(enrollment.EnrollmentID))
+                try
                 {
-                    return NotFound();
+                    _context.Update(enrollment);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!EnrollmentExists(enrollment.EnrollmentID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(enrollment);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!EnrollmentExists(enrollment.EnrollmentID))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title", enrollment.CourseID);
-            //ViewData["StudentID"] = new SelectList(_context.Students, "ID", "FirstName", enrollment.StudentID);
-            //return View(enrollment);
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title", enrollment.CourseID);
+            ViewData["StudentID"] = new SelectList(_context.Students, "ID", "FirstName", enrollment.StudentID);
+            return View(enrollment);
         }
 
         // GET: Enrollments/Delete/5

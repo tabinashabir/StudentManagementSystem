@@ -13,6 +13,6 @@ namespace StudentManagementSystem.Models
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

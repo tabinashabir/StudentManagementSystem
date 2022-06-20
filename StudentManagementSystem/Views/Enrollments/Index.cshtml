@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StudentManagementSystem.Models.Enrollment>
+﻿@model IEnumerable<Enrollment>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,42 +18,40 @@
     <br />
     <br />
 
-
-    <table class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    Course Title
-                </th>
-                <th>
-                    Student Name
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
                 <tr>
-                    <td>
-                        @item.Course.Title
-                        @*@Html.DisplayFor(modelItem => item.Course.Title)*@
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Student.FirstName)
-                    </td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Enrollments" asp-action="Edit" asp-route-id="@item.EnrollmentID"
-                            class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
-                            <a asp-controller="Enrollments" asp-action="Details" asp-route-id="@item.EnrollmentID"
-                            class="btn btn-danger mx-2"> <i class="bi bi-arrow-up-left-square-fill"></i> Details</a>
-                            <a asp-controller="Enrollments" asp-action="Delete" asp-route-id="@item.EnrollmentID"
-                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
-                        </div>
-                    </td>
+                    <th width="50%">
+                        Course Title
+                    </th>
+                    <th width="30%">
+                        Student Name
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Course.Title
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.FirstName)
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Enrollments" asp-action="Edit" asp-route-id="@item.EnrollmentID"
+                                class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                                <a asp-controller="Enrollments" asp-action="Delete" asp-route-id="@item.EnrollmentID"
+                                class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

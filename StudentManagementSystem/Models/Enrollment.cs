@@ -13,10 +13,8 @@ namespace StudentManagementSystem.Models
         [Required]
         public int StudentID { get; set; }
 
-        [Required]
-        public Course Course { get; set; }
+        public Course? Course { get; set; }
 
-        [Required]
-        public Student Student { get; set; }
+        public Student? Student { get; set; }
     }
 }
