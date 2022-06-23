@@ -1,39 +1,38 @@
-﻿@model StudentManagementSystem.Models.Enrollment
+﻿@model Enrollment
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Enrollment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EnrollmentID" />
-            <div class="form-group">
-                <label asp-for="CourseID" class="control-label"></label>
-                <select asp-for="CourseID" class="form-control" asp-items="ViewBag.CourseID"></select>
-                <span asp-validation-for="CourseID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StudentID" class="control-label"></label>
-                <select asp-for="StudentID" class="form-control" asp-items="ViewBag.StudentID"></select>
-                <span asp-validation-for="StudentID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form method="post" asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit Enrollment</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="EnrollmentID" />
+        <div class="form-group mb-3">
+            <label asp-for="CourseID" class="control-label"></label>
+            <select asp-for="CourseID" class="form-control" asp-items="ViewBag.CourseID"></select>
+            <span asp-validation-for="CourseID" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="StudentID" class="control-label"></label>
+            <select asp-for="StudentID" class="form-control" asp-items="ViewBag.StudentID"></select>
+            <span asp-validation-for="StudentID" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" value="Save" style="width:150px">Update</button>
+            <a asp-controller="Course" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

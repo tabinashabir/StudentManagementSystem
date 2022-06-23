@@ -26,6 +26,16 @@ namespace StudentManagementSystem.Controllers
             return View(await studentManagementSystemDbContext.ToListAsync());
         }
 
+        // GET: Enrollments/Details
+        public IActionResult Details(int id)
+        {
+            var objStudentList = _context.Enrollments
+                .Include(e => e.Course)
+                .Include(e => e.Student)
+                .Where(m => m.EnrollmentID == id);
+            return View(objStudentList);
+        }
+
         // GET: Enrollments/Create
         public IActionResult Create()
         {
@@ -39,6 +49,14 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EnrollmentID,CourseID,StudentID")] Enrollment enrollment)
         {
+            foreach (var item in _context.Enrollments)
+            {
+                if (item.CourseID == enrollment.CourseID && item.StudentID == enrollment.StudentID)
+                {
+                    ModelState.AddModelError("CourseID", "The student is already enrolled in this course");
+                    return View(enrollment);
+                }
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(enrollment);

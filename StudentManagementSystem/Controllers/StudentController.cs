@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 
@@ -18,26 +19,16 @@ namespace StudentManagementSystem.Controllers
             return View(objStudentList);
         }
 
-        // GET: Students/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Students == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Students/Details
+        public IActionResult Details(int id)
+        {
 
-        //    var student = await _context.Students
-        //        .Include(b => b.Enrollments)
-        //        .ThenInclude(c => c.Course)
-        //        //.Where(z=>z.ID == id)
-        //        .FirstOrDefaultAsync(m => m.ID == id);
-        //    if (student == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(student);
-        //}
+            var objStudent = _db.Students
+                .Include(x => x.Enrollments)
+                .ThenInclude(y => y.Course)
+                .FirstOrDefault((x => x.ID == id));
+            return View(objStudent);
+        }
 
         //GET
         public IActionResult Create()
@@ -50,10 +41,16 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Student obj)
         {
-            //if (obj.Frist == obj.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            //}
+            if (_db.Students.Any(x => x.EmailAddress == obj.EmailAddress))
+            {
+                ModelState.AddModelError("EmailAddress", "The student with same email already exists");
+                return View(obj);
+            }
+            if (_db.Students.Any(x => x.PhoneNumber == obj.PhoneNumber))
+            {
+                ModelState.AddModelError("PhoneNumber", "The student with same phone no. already exists");
+                return View(obj);
+            }
             if (ModelState.IsValid)
             {
                 _db.Students.Add(obj);

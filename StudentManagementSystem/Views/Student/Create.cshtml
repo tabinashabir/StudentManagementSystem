@@ -1,5 +1,4 @@
-﻿
-@model Student
+﻿@model Student
 
 <form method="post">
     <div class="border p-3 mt-4">
@@ -16,19 +15,68 @@
         <input asp-for="LastName" class="form-control" />
         <span asp-validation-for="LastName" class="text-danger"></span>
     </div>
-    @*<div class="mb-3">
-		<label asp-for="Enrollments"></label>
-		<input asp-for="Enrollments" class="form-control" />
-		<span asp-validation-for="Enrollments" class="text-danger"></span>
-	</div>*@
-    <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
-	<a asp-controller="Student" asp-action="Index" class="btn btn-secondary" style="width:150px">
-		Back to List
-	</a>
+    <div class="mb-3">
+        <label asp-for="EmailAddress"></label>
+        <input asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+@*    <div class="mb-3 btn-group" role="group" aria-label="Basic radio toggle button group">
+        <div class="mb-3">
+            <label>Gender         </label>
+            <br />
+        </div>
+        <div>
+        <input asp-for="Gender" value="Male" type="radio" class="btn-check" autocomplete="off" checked="">
+        <label asp-for="Gender" class="btn btn-outline-primary">MALE</label>
+        <input asp-for="Gender" value="Female" type="radio" class="btn-check" autocomplete="off" checked="">
+        <label asp-for="Gender" class="btn btn-outline-primary">FEMALE</label>
+        <input asp-for="Gender" value="Others" type="radio" class="btn-check" autocomplete="off" checked="">
+        <label asp-for="Gender" class="btn btn-outline-primary">OTHERS</label>
+        </div>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>*@
+
+    @*<div class="mb-3 btn-group" role="group" aria-label="Basic radio toggle button group">
+    <label asp-for="Gender"></label>
+    <input asp-for="Gender" value="Male" type="radio" class="btn-check" id="btnradio1" autocomplete="off" checked="">
+    <label asp-for="Gender" class="btn btn-outline-primary" for="btnradio1">MALE</label>
+    <input asp-for="Gender" value="Male" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+    <label asp-for="Gender" class="btn btn-outline-primary" for="btnradio2">FEMALE</label>
+    <input asp-for="Gender" value="Male" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" checked="">
+    <label asp-for="Gender" class="btn btn-outline-primary" for="btnradio3">OTHERS</label>
+
+    <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>*@
+
+    <div class="mb-3">
+    <label asp-for="Gender"></label>
+    <br />
+    <div class="p-1">
+    @Html.RadioButtonFor(m => m.Gender,"Female")
+    Male
+    </div>
+    <div class="p-1">
+    @Html.RadioButtonFor(m => m.Gender,"Male")
+    Female
+    </div>
+    <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-controller="Student" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
 </form>
 
 @section Scripts{
-	@{
-		<partial name="_ValidationScriptsPartial" />
-	}
-}
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }

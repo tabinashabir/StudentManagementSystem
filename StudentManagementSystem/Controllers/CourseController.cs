@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 
@@ -18,6 +19,17 @@ namespace StudentManagementSystem.Controllers
             return View(objCourseList);
         }
 
+        // GET: Course/Details
+        public IActionResult Details(int id)
+        {
+
+            var objStudent = _db.Courses
+                .Include(x => x.Enrollments)
+                .ThenInclude(y => y.Student)
+                .FirstOrDefault((x => x.CourseID == id));
+            return View(objStudent);
+        }
+
         //GET
         public IActionResult Create()
         {
@@ -29,10 +41,11 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Course obj)
         {
-            //if (obj.Frist == obj.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            //}
+            if(_db.Courses.Any(x => x.Title == obj.Title))
+            {
+                ModelState.AddModelError("Title", "The course already exists");
+                return View(obj);
+            }
             if (ModelState.IsValid)
             {
                 _db.Courses.Add(obj);
@@ -66,10 +79,6 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Course obj)
         {
-            //if (obj.Name == obj.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            //}
             if (ModelState.IsValid)
             {
                 _db.Courses.Update(obj);
