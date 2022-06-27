@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem", "StudentManagementSystem\StudentManagementSystem.csproj", "{8A396A2B-DAEC-4ED3-A351-C5D8DE50B71D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.DataAccess", "DataAcess\StudentManagementSystem.DataAccess.csproj", "{4BC13C4E-0C40-46BC-881D-130B584AD8CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.DataAccess", "StudentManagementSystem.DataAccess\StudentManagementSystem.DataAccess.csproj", "{4BC13C4E-0C40-46BC-881D-130B584AD8CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagementSystem.Models", "StudentManagementSystem.Models\StudentManagementSystem.Models.csproj", "{63F9A576-5947-47C6-9072-8316BEA88E39}"
 EndProject
