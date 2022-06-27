@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -19,8 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAcess\StudentManagementSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\StudentManagementSystem.DataAccess\StudentManagementSystem.DataAccess.csproj" />
     <ProjectReference Include="..\StudentManagementSystem.Models\StudentManagementSystem.Models.csproj" />
+    <ProjectReference Include="..\StudentManagementSystem.Utilities\StudentManagementSystem.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
